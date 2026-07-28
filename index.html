@@ -1,1 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment Center</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:linear-gradient(135deg,#fff700,#ffc800);
+
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:20px;
+
+    color:#111;
+
+}
+
+
+.container{
+
+    width:100%;
+    max-width:450px;
+
+    background:white;
+
+    padding:30px;
+
+    border-radius:25px;
+
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
+
+}
+
+
+
+.wallet-logo{
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+}
+
+
+.wallet-logo svg{
+
+    width:65px;
+
+    height:65px;
+
+    fill:#16a34a;
+
+}
+
+
+
+h1{
+
+    text-align:center;
+
+    font-size:32px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+p{
+
+    text-align:center;
+
+    color:#555;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+.payment-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
+    width:100%;
+
+    padding:16px;
+
+    margin:15px 0;
+
+    border-radius:15px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:19px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+.payment-btn:hover{
+
+    transform:scale(1.04);
+
+}
+
+
+
+.logo-box{
+
+    width:42px;
+
+    height:42px;
+
+    background:white;
+
+    border-radius:10px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.chime{
+
+    background:#00c244;
+
+}
+
+
+.cashapp{
+
+    background:#00d632;
+
+}
+
+
+.paypal{
+
+    background:#0070ba;
+
+}
+
+
+.crypto{
+
+    background:#f7931a;
+
+}
+
+
+
+.chime-text{
+
+    font-family:'Baloo 2';
+
+    color:#00c244;
+
+    font-size:13px;
+
+    font-weight:800;
+
+}
+
+
+
+.footer{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+
+
+@media(max-width:599px){
+
+.container{
+
+    padding:22px;
+
+}
+
+
+h1{
+
+    font-size:27px;
+
+}
+
+
+.payment-btn{
+
+    padding:14px;
+
+    font-size:17px;
+
+}
+
+}
+
+</style>
+
+
+</head>
+
+
+
+<body>
+
+
+<div class="container">
+
+
+<div class="wallet-logo">
+
+<svg viewBox="0 0 24 24">
+
+<path d="M20 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 10H4V8h16v8zm-3-5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+
+</svg>
+
+</div>
+
+
+
+<h1>Payment Center</h1>
+
+<p>Select your preferred payment method</p>
+
+
+
+
+<a id="chimeButton" href="#" class="payment-btn chime">
+
+<div class="logo-box">
+
+<span class="chime-text">
+chime
+</span>
+
+</div>
+
+Chime
+
+</a>
+
+
+
+
+
+<a id="cashappButton" href="#" class="payment-btn cashapp">
+
+<div class="logo-box">
+
+<svg viewBox="0 0 24 24" fill="#00d632">
+
+<circle cx="12" cy="12" r="10"/>
+
+<text x="8" y="16" fill="white" font-size="10">$</text>
+
+</svg>
+
+</div>
+
+Cash App
+
+</a>
+
+
+
+
+
+<a id="paypalButton" href="#" class="payment-btn paypal">
+
+<div class="logo-box">
+
+<svg viewBox="0 0 24 24" fill="#0070ba">
+
+<path d="M7 20l2-13h7c3 0 5 2 5 5s-2 5-5 5h-4l-1 3H7z"/>
+
+</svg>
+
+</div>
+
+PayPal
+
+</a>
+
+
+
+
+
+<a id="cryptoButton" href="#" class="payment-btn crypto">
+
+<div class="logo-box">
+
+<svg viewBox="0 0 24 24" fill="#f7931a">
+
+<circle cx="12" cy="12" r="10"/>
+
+<text x="8" y="16" fill="white" font-size="10">$</text>
+
+</svg>
+
+</div>
+
+Crypto
+
+</a>
+
+
+
+
+
+<div class="footer">
+
+Secure Payments •
+
+</div>
+
+
+
+</div>
+
+
+
+
+
+<script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ================================
+   EDIT YOUR PAYMENT LINKS HERE
+================================ */
+
+
+const ENTER_YOUR_CHIME_LINK_HERE = 
+"https://app.chime.com/link/qr?u=Andrew-Ostrowski-8";
+
+
+const ENTER_YOUR_CASHAPP_LINK_HERE = 
+"https://cash.app/$frankiejoliee06?qr=1";
+
+
+const ENTER_YOUR_PAYPAL_LINK_HERE = 
+"https://www.paypal.com/qrcodes/p2pqrc/UD9FHE43MC3EA";
+
+
+const ENTER_YOUR_CRYPTO_LINK_HERE = 
+"https://trustwallet.com/";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+/* CONNECT LINKS TO BUTTONS */
+
+
+document.getElementById("chimeButton").href =
+ENTER_YOUR_CHIME_LINK_HERE;
+
+
+document.getElementById("cashappButton").href =
+ENTER_YOUR_CASHAPP_LINK_HERE;
+
+
+document.getElementById("paypalButton").href =
+ENTER_YOUR_PAYPAL_LINK_HERE;
+
+
+document.getElementById("cryptoButton").href =
+ENTER_YOUR_CRYPTO_LINK_HERE;
+
+
+</script>
+
+
+
+</body>
+
+</html>
