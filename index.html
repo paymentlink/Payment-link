@@ -1,714 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HIGH ROLLER DRAW — Pick 3 &amp; Daily 4</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Share+Tech+Mono&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jsQR/1.4.0/jsQR.js"></script>
+
+<title>Payment Center</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
+
+
 <style>
-  :root{
-    --bg:#0B0A12;
-    --panel:#171325;
-    --panel-2:#1E1A30;
-    --line:rgba(255,201,60,0.16);
-    --gold:#FFC93C;
-    --gold-soft:#E0AF2E;
-    --red:#FF3B5C;
-    --purple:#B14EFF;
-    --green:#22D67A;
-    --text:#F5F1E8;
-    --text-dim:rgba(245,241,232,0.58);
-    --radius:6px;
-  }
-  *{box-sizing:border-box;}
-  body{
+
+*{
     margin:0;
-    background:
-      radial-gradient(circle at 15% 0%, rgba(177,78,255,0.12), transparent 45%),
-      radial-gradient(circle at 85% 20%, rgba(255,201,60,0.10), transparent 40%),
-      var(--bg);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+body{
+
+    background:linear-gradient(135deg,#fff700,#ffc800);
+
     min-height:100vh;
-  }
-  .app{display:flex; min-height:100vh; max-width:1280px; margin:0 auto;}
 
-  /* RAIL */
-  .rail{width:230px; flex-shrink:0; background:linear-gradient(180deg,#15101F,#0D0A15); padding:26px 0; display:flex; flex-direction:column; border-right:1px solid var(--line);}
-  .rail-brand{font-family:'Bungee',cursive; font-size:19px; padding:0 22px 18px 22px; border-bottom:1px solid var(--line); margin-bottom:10px; letter-spacing:0.01em; line-height:1.3;}
-  .rail-brand span{color:var(--gold); text-shadow:0 0 14px rgba(255,201,60,0.5);}
-  .rail-sub{font-family:'Share Tech Mono',monospace; font-size:10px; color:var(--text-dim); padding:0 22px; margin-bottom:22px; letter-spacing:0.08em;}
-  .rail-btn{display:flex; align-items:center; gap:9px; padding:12px 22px; font-family:'Share Tech Mono',monospace; font-size:12.5px; letter-spacing:0.03em; color:var(--text-dim); cursor:pointer; border-left:3px solid transparent;}
-  .rail-btn:hover{color:var(--text); background:rgba(255,201,60,0.04);}
-  .rail-btn.active{color:var(--gold); border-left-color:var(--gold); background:rgba(255,201,60,0.08);}
-  .rail-num{color:var(--purple); font-size:10.5px;}
-  .rail-wallet{margin-top:auto; padding:16px 22px 4px 22px; border-top:1px solid var(--line);}
-  .rail-wallet-label{font-size:10px; letter-spacing:0.1em; color:var(--text-dim); text-transform:uppercase; margin-bottom:4px;}
-  .rail-wallet-amt{font-family:'Share Tech Mono',monospace; font-size:23px; color:var(--green); text-shadow:0 0 10px rgba(34,214,122,0.4);}
-  .rail-add{margin-top:9px; background:none; border:1px solid var(--line); color:var(--text-dim); font-family:'Share Tech Mono',monospace; font-size:10.5px; padding:6px 10px; cursor:pointer; border-radius:var(--radius); width:100%;}
-  .rail-add:hover{border-color:var(--gold); color:var(--gold);}
+    display:flex;
+    justify-content:center;
+    align-items:center;
 
-  /* MAIN */
-  .main{flex:1; padding:34px 38px; min-width:0;}
-  .page-title{font-family:'Bungee',cursive; font-size:24px; margin:0 0 6px 0; letter-spacing:0.01em;}
-  .page-sub{font-family:'Share Tech Mono',monospace; font-size:11.5px; color:var(--text-dim); margin-bottom:26px; letter-spacing:0.03em;}
+    padding:20px;
 
-  .game-switch{display:flex; gap:10px; margin-bottom:22px;}
-  .game-tab{font-family:'Bungee',cursive; font-size:13px; padding:12px 20px; background:var(--panel); border:1px solid var(--line); cursor:pointer; border-radius:var(--radius); color:var(--text-dim);}
-  .game-tab.active{background:linear-gradient(135deg,var(--gold),var(--gold-soft)); color:#1A1305; border-color:var(--gold); box-shadow:0 0 18px rgba(255,201,60,0.35);}
-  .game-tab .pr{display:block; font-family:'Share Tech Mono',monospace; font-size:10px; opacity:0.75; margin-top:2px;}
+    color:#111;
 
-  .card{background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:24px; margin-bottom:22px; box-shadow:0 8px 30px rgba(0,0,0,0.35);}
-  .field-label{font-size:10.5px; letter-spacing:0.09em; text-transform:uppercase; color:var(--text-dim); margin-bottom:10px; display:block;}
-  .digit-row{display:flex; gap:10px; margin-bottom:20px; flex-wrap:wrap;}
-  .digit-input{width:54px; height:60px; font-family:'Share Tech Mono',monospace; font-size:30px; text-align:center; border:2px solid var(--line); border-radius:var(--radius); background:#0D0A15; color:var(--gold); text-shadow:0 0 8px rgba(255,201,60,0.4);}
-  .digit-input:focus{outline:none; border-color:var(--gold);}
-  .digit-input:disabled{opacity:0.35;}
-  .quickpick{background:none; border:1px dashed var(--purple); color:var(--purple); font-family:'Share Tech Mono',monospace; font-size:11.5px; padding:8px 14px; cursor:pointer; border-radius:var(--radius); height:60px; align-self:flex-start;}
-  .quickpick:hover{background:rgba(177,78,255,0.1);}
+}
 
-  .option-grid{display:flex; gap:10px; flex-wrap:wrap; margin-bottom:20px;}
-  .opt{padding:10px 16px; border:1px solid var(--line); border-radius:var(--radius); cursor:pointer; font-size:12.5px; background:#0D0A15; color:var(--text-dim);}
-  .opt.active{background:var(--red); border-color:var(--red); color:#fff; font-weight:600; box-shadow:0 0 14px rgba(255,59,92,0.4);}
-  .opt small{display:block; opacity:0.75; font-size:9.5px; margin-top:2px;}
 
-  .row-split{display:flex; gap:22px; flex-wrap:wrap;}
-  .col{flex:1; min-width:170px;}
-  select,input[type=date],input[type=number],input[type=text]{width:100%; padding:10px 12px; border:1px solid var(--line); border-radius:var(--radius); font-family:'Inter',sans-serif; font-size:13px; background:#0D0A15; color:var(--text);}
-  select:focus,input:focus{outline:none; border-color:var(--gold);}
-  .checkbox-line{display:flex; align-items:center; gap:8px; font-size:12.5px; color:var(--text-dim); margin-top:8px;}
+.container{
 
-  .cost-bar{display:flex; justify-content:space-between; align-items:center; margin-top:22px; padding-top:18px; border-top:1px dashed var(--line); flex-wrap:wrap; gap:14px;}
-  .cost-num{font-family:'Share Tech Mono',monospace; font-size:24px; color:var(--gold); text-shadow:0 0 10px rgba(255,201,60,0.35);}
-  .buy-btn{background:linear-gradient(135deg,var(--red),#C41C3F); color:#fff; border:none; padding:14px 30px; font-family:'Bungee',cursive; font-size:13px; letter-spacing:0.02em; cursor:pointer; border-radius:var(--radius); box-shadow:0 0 20px rgba(255,59,92,0.35);}
-  .buy-btn:hover{filter:brightness(1.12);}
-  .buy-btn:disabled{background:#3A3548; box-shadow:none; cursor:not-allowed;}
-  .buy-btn.secondary{background:linear-gradient(135deg,var(--purple),#7A2FCF); box-shadow:0 0 16px rgba(177,78,255,0.3);}
-  .error-msg{color:var(--red); font-size:12px; margin-top:10px; font-family:'Share Tech Mono',monospace;}
-  .ok-msg{color:var(--green); font-size:12px; margin-top:10px; font-family:'Share Tech Mono',monospace;}
+    width:100%;
+    max-width:450px;
 
-  /* TICKET STUB */
-  .stub-grid{display:flex; flex-wrap:wrap; gap:22px; justify-content:flex-start; margin-top:8px;}
-  .stub{
-    width:280px; background:#0F0C18; border:1px solid var(--line); border-radius:var(--radius);
-    box-shadow:0 10px 26px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,201,60,0.05);
-    position:relative; padding:20px 18px 18px 18px; font-family:'Share Tech Mono',monospace;
-  }
-  .foil{height:9px; border-radius:3px; margin-bottom:14px; background:linear-gradient(100deg,#FFC93C,#B14EFF 30%,#33E1FF 55%,#FF3B5C 75%,#FFC93C); background-size:250% 100%;}
-  .stub-head{text-align:center; margin-bottom:8px;}
-  .stub-head .b{font-family:'Bungee',cursive; font-size:14px; color:var(--gold);}
-  .stub-head .s{font-size:9.5px; color:var(--text-dim); letter-spacing:0.07em;}
-  .stub-digits{text-align:center; font-size:34px; letter-spacing:7px; padding:12px 0; color:var(--gold); text-shadow:0 0 12px rgba(255,201,60,0.4); border-top:1px dashed var(--line); border-bottom:1px dashed var(--line); margin:10px 0;}
-  .stub-meta{font-size:10.5px; display:flex; justify-content:space-between; margin-bottom:4px; color:var(--text-dim);}
-  .stub-qr{display:flex; justify-content:center; margin:12px 0 8px 0; background:#fff; padding:8px; border-radius:4px; width:fit-content; margin-left:auto; margin-right:auto;}
-  .stub-id{text-align:center; font-size:9.5px; letter-spacing:0.08em; color:var(--text-dim); margin-top:4px;}
-  .stub-sig{text-align:center; font-size:8.5px; letter-spacing:0.06em; color:var(--purple); margin-top:3px; word-break:break-all;}
+    background:white;
 
-  /* TICKET LIST */
-  .ticket-list{display:flex; flex-direction:column; gap:13px;}
-  .tk-row{display:flex; align-items:center; justify-content:space-between; background:var(--panel); border:1px solid var(--line); border-radius:var(--radius); padding:15px 20px; gap:16px; flex-wrap:wrap;}
-  .tk-left{display:flex; align-items:center; gap:16px;}
-  .tk-digits{font-family:'Share Tech Mono',monospace; font-size:22px; letter-spacing:4px; background:#0D0A15; color:var(--gold); padding:7px 13px; border-radius:var(--radius); border:1px solid var(--line);}
-  .tk-info{font-size:11.5px; color:var(--text-dim); line-height:1.7;}
-  .tk-info b{color:var(--text);}
-  .tag{font-family:'Share Tech Mono',monospace; font-size:10.5px; padding:5px 10px; border-radius:var(--radius); letter-spacing:0.03em;}
-  .tag.pending{background:#2A2540; color:var(--text-dim);}
-  .tag.win{background:var(--green); color:#052912; font-weight:700;}
-  .tag.lose{background:#3A3548; color:var(--text-dim);}
-  .collect-btn{background:var(--gold); border:none; padding:9px 16px; font-family:'Bungee',cursive; font-size:11px; border-radius:var(--radius); cursor:pointer; color:#1A1305;}
-  .collect-btn:hover{filter:brightness(1.1);}
-  .collected{font-size:10.5px; color:var(--green); font-family:'Share Tech Mono',monospace;}
-  .empty{text-align:center; padding:50px 20px; color:var(--text-dim); font-family:'Share Tech Mono',monospace; font-size:12.5px;}
+    padding:30px;
 
-  /* ADMIN */
-  .draw-history{display:flex; flex-direction:column; gap:9px; margin-top:18px;}
-  .draw-row{display:flex; justify-content:space-between; align-items:center; background:#0D0A15; border:1px solid var(--line); padding:11px 16px; border-radius:var(--radius); font-family:'Share Tech Mono',monospace; font-size:11.5px; color:var(--text-dim);}
-  .draw-row .dg{font-size:17px; letter-spacing:4px; color:var(--gold);}
+    border-radius:25px;
 
-  /* VERIFY */
-  .verify-tabs{display:flex; gap:10px; margin-bottom:18px;}
-  .vtab{padding:9px 16px; border:1px solid var(--line); border-radius:var(--radius); cursor:pointer; font-size:12px; color:var(--text-dim); font-family:'Share Tech Mono',monospace;}
-  .vtab.active{background:var(--purple); border-color:var(--purple); color:#fff;}
-  .drop-zone{border:2px dashed var(--line); border-radius:var(--radius); padding:34px; text-align:center; color:var(--text-dim); font-size:12.5px; cursor:pointer;}
-  .drop-zone:hover{border-color:var(--gold); color:var(--gold);}
-  .verify-result{margin-top:20px;}
-  .verify-badge{display:inline-flex; align-items:center; gap:8px; padding:9px 16px; border-radius:var(--radius); font-family:'Share Tech Mono',monospace; font-size:12px; margin-bottom:14px;}
-  .verify-badge.good{background:rgba(34,214,122,0.15); color:var(--green); border:1px solid var(--green);}
-  .verify-badge.bad{background:rgba(255,59,92,0.15); color:var(--red); border:1px solid var(--red);}
-  .verify-badge.warn{background:rgba(255,201,60,0.12); color:var(--gold); border:1px solid var(--gold);}
+    box-shadow:0 15px 35px rgba(0,0,0,.25);
 
-  .disclaimer{margin-top:26px; font-size:11px; color:var(--text-dim); line-height:1.65; border-top:1px solid var(--line); padding-top:16px;}
-  .loading{font-family:'Share Tech Mono',monospace; font-size:12px; color:var(--text-dim);}
+}
 
-  @media print{
-    .rail, .card, .page-sub, .verify-tabs, .disclaimer, .empty{display:none !important;}
-    body{background:#fff !important;}
-    .main{padding:0;}
-    .page-title{display:none;}
-    .stub{box-shadow:none; border:1px solid #333; page-break-inside:avoid;}
-    .stub-digits, .stub-head .b, .stub-id{color:#000 !important; text-shadow:none !important;}
-  }
-  @media (max-width:760px){
-    .app{flex-direction:column;}
-    .rail{width:100%; flex-direction:row; overflow-x:auto; padding:14px 0;}
-    .rail-brand,.rail-sub,.rail-wallet{display:none;}
-    .main{padding:20px 16px;}
-  }
+
+
+.wallet-logo{
+
+    text-align:center;
+
+    margin-bottom:15px;
+
+}
+
+
+.wallet-logo svg{
+
+    width:65px;
+
+    height:65px;
+
+    fill:#16a34a;
+
+}
+
+
+
+h1{
+
+    text-align:center;
+
+    font-size:32px;
+
+    margin-bottom:10px;
+
+}
+
+
+
+p{
+
+    text-align:center;
+
+    color:#555;
+
+    margin-bottom:25px;
+
+}
+
+
+
+
+.payment-btn{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:15px;
+
+    width:100%;
+
+    padding:16px;
+
+    margin:15px 0;
+
+    border-radius:15px;
+
+    color:white;
+
+    text-decoration:none;
+
+    font-size:19px;
+
+    font-weight:bold;
+
+    transition:.3s;
+
+}
+
+
+.payment-btn:hover{
+
+    transform:scale(1.04);
+
+}
+
+
+
+.logo-box{
+
+    width:42px;
+
+    height:42px;
+
+    background:white;
+
+    border-radius:10px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+}
+
+
+
+.chime{
+
+    background:#00c244;
+
+}
+
+
+.cashapp{
+
+    background:#00d632;
+
+}
+
+
+.paypal{
+
+    background:#0070ba;
+
+}
+
+
+.crypto{
+
+    background:#f7931a;
+
+}
+
+
+
+.chime-text{
+
+    font-family:'Baloo 2';
+
+    color:#00c244;
+
+    font-size:13px;
+
+    font-weight:800;
+
+}
+
+
+
+.footer{
+
+    margin-top:25px;
+
+    text-align:center;
+
+    color:#777;
+
+    font-size:14px;
+
+}
+
+
+
+@media(max-width:599px){
+
+.container{
+
+    padding:22px;
+
+}
+
+
+h1{
+
+    font-size:27px;
+
+}
+
+
+.payment-btn{
+
+    padding:14px;
+
+    font-size:17px;
+
+}
+
+}
+
 </style>
+
+
 </head>
+
+
+
 <body>
-<div class="app">
-  <div class="rail">
-    <div class="rail-brand">HIGH ROLLER<br><span>DRAW HALL</span></div>
-    <div class="rail-sub">PICK 3 · DAILY 4</div>
-    <div class="rail-btn active" data-tab="play"><span class="rail-num">01</span> PLAY</div>
-    <div class="rail-btn" data-tab="tickets"><span class="rail-num">02</span> MY TICKETS</div>
-    <div class="rail-btn" data-tab="verify"><span class="rail-num">03</span> VERIFY TICKET</div>
-    <div class="rail-btn" data-tab="results"><span class="rail-num">04</span> RESULTS</div>
-    <div class="rail-btn" data-tab="admin"><span class="rail-num">05</span> DRAW ADMIN</div>
-    <div class="rail-wallet">
-      <div class="rail-wallet-label">Wallet balance</div>
-      <div class="rail-wallet-amt" id="walletAmt">$0</div>
-      <button class="rail-add" id="addFundsBtn">+ ADD $2,000 (DEMO)</button>
-    </div>
-  </div>
-  <div class="main" id="main"><div class="loading">Loading terminal…</div></div>
+
+
+<div class="container">
+
+
+<div class="wallet-logo">
+
+<svg viewBox="0 0 24 24">
+
+<path d="M20 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 10H4V8h16v8zm-3-5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+
+</svg>
+
 </div>
 
-<canvas id="hiddenCanvas" style="display:none;"></canvas>
+
+
+<h1>Payment Center</h1>
+
+<p>Select your preferred payment method</p>
+
+
+
+
+<a id="chimeButton" href="#" class="payment-btn chime">
+
+<div class="logo-box">
+
+<span class="chime-text">
+chime
+</span>
+
+</div>
+
+Chime
+
+</a>
+
+
+
+
+
+<a id="cashappButton" href="#" class="payment-btn cashapp">
+
+<div class="logo-box">
+
+<svg viewBox="0 0 24 24" fill="#00d632">
+
+<circle cx="12" cy="12" r="10"/>
+
+<text x="8" y="16" fill="white" font-size="10">$</text>
+
+</svg>
+
+</div>
+
+Cash App
+
+</a>
+
+
+
+
+
+<a id="paypalButton" href="#" class="payment-btn paypal">
+
+<div class="logo-box">
+
+<svg viewBox="0 0 24 24" fill="#0070ba">
+
+<path d="M7 20l2-13h7c3 0 5 2 5 5s-2 5-5 5h-4l-1 3H7z"/>
+
+</svg>
+
+</div>
+
+PayPal
+
+</a>
+
+
+
+
+
+<a id="cryptoButton" href="#" class="payment-btn crypto">
+
+<div class="logo-box">
+
+<svg viewBox="0 0 24 24" fill="#f7931a">
+
+<circle cx="12" cy="12" r="10"/>
+
+<text x="8" y="16" fill="white" font-size="10">$</text>
+
+</svg>
+
+</div>
+
+Crypto
+
+</a>
+
+
+
+
+
+<div class="footer">
+
+Secure Payments •
+
+</div>
+
+
+
+</div>
+
+
+
+
 
 <script>
-const STORAGE = window.storage;
-const PRICES = { PICK3: 100, DAILY4: 500 };
-const SALT = 'HRDH-2026-DEMO-INTEGRITY-SALT';
-const GAME_CONF = {
-  PICK3: { label:'Pick 3', digits:3, straightPay:500 },
-  DAILY4:{ label:'Daily 4', digits:4, straightPay:5000 }
-};
 
-let wallet = 0;
-let currentTab = 'play';
-let currentGame = 'PICK3';
-let selectedDigits = [];
-let playType = 'STRAIGHT';
-let quantity = 1;
-let randomizeEach = false;
-let drawDate = todayStr();
-let session = 'MIDDAY';
-let lastBatch = [];
-let verifyMode = 'code';
 
-function todayStr(){ return new Date().toISOString().slice(0,10); }
 
-async function init(){
-  selectedDigits = Array(GAME_CONF[currentGame].digits).fill('');
-  await loadWallet();
-  bindRail();
-  document.getElementById('addFundsBtn').onclick = addFunds;
-  render();
-}
-function bindRail(){
-  document.querySelectorAll('.rail-btn').forEach(btn=>{
-    btn.onclick = ()=>{
-      document.querySelectorAll('.rail-btn').forEach(b=>b.classList.remove('active'));
-      btn.classList.add('active');
-      currentTab = btn.dataset.tab;
-      render();
-    };
-  });
-}
 
-/* WALLET */
-async function loadWallet(){
-  try{
-    const res = await STORAGE.get('wallet-balance', false);
-    wallet = res ? parseFloat(res.value) : 2000;
-  }catch(e){ wallet = 2000; await STORAGE.set('wallet-balance','2000',false); }
-  updateWalletUI();
-}
-async function saveWallet(){
-  try{ await STORAGE.set('wallet-balance', String(wallet), false); }catch(e){ console.error(e); }
-  updateWalletUI();
-}
-function updateWalletUI(){ document.getElementById('walletAmt').textContent = '$' + wallet.toLocaleString(undefined,{maximumFractionDigits:0}); }
-async function addFunds(){ wallet += 2000; await saveWallet(); }
 
-/* PAYOUT LOGIC */
-function allSame(digits){ return new Set(digits).size===1; }
-function boxPayout(game, digits){
-  const freq={}; digits.forEach(d=>freq[d]=(freq[d]||0)+1);
-  const distinct = Object.keys(freq).length;
-  if(game==='PICK3'){
-    if(distinct===3) return 80;
-    if(distinct===2) return 160;
-    return 0;
-  } else {
-    if(distinct===4) return 200;
-    if(distinct===3) return 400;
-    if(distinct===2){
-      const vals = Object.values(freq).sort();
-      if(vals[0]===2 && vals[1]===2) return 800;
-      if(vals[0]===1 && vals[1]===3) return 1200;
-    }
-    return 0;
-  }
-}
-function lineCost(game, pt){ return PRICES[game] * (pt==='STRAIGHT_BOX'?2:1); }
-function evaluateTicket(ticket, drawDigits){
-  const exact = ticket.numbers.length===drawDigits.length && ticket.numbers.every((d,i)=>d===drawDigits[i]);
-  const boxMatch = [...ticket.numbers].sort().join('')===[...drawDigits].sort().join('');
-  const straightPay = GAME_CONF[ticket.game].straightPay;
-  const boxPay = boxPayout(ticket.game, ticket.numbers);
-  const unit = PRICES[ticket.game];
-  let amount = 0;
-  if(ticket.playType==='STRAIGHT'){ if(exact) amount = straightPay*unit; }
-  else if(ticket.playType==='BOX'){ if(boxMatch) amount = boxPay*unit; }
-  else if(ticket.playType==='STRAIGHT_BOX'){
-    if(exact) amount += straightPay*unit;
-    if(boxMatch) amount += boxPay*unit;
-  }
-  return { won: amount>0, amount, exact, boxMatch };
-}
 
-/* SIGNATURE (tamper-evident checksum, demo only — not real cryptographic secrecy since it runs client-side) */
-async function computeSig(ticket){
-  const str = [ticket.id, ticket.game, ticket.numbers.join(''), ticket.playType, ticket.drawDate, ticket.session, SALT].join('|');
-  const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
-  return Array.from(new Uint8Array(buf)).map(b=>b.toString(16).padStart(2,'0')).join('').slice(0,12).toUpperCase();
-}
-function ticketToCode(ticket){
-  return `TICKET|${ticket.id}|${ticket.game}|${ticket.numbers.join('')}|${ticket.playType}|${ticket.drawDate}|${ticket.session}|${ticket.sig}`;
-}
-function parseCode(text){
-  const parts = text.trim().split('|');
-  if(parts.length!==8 || parts[0]!=='TICKET') return null;
-  const [, id, game, numStr, pt, date, sess, sig] = parts;
-  if(!GAME_CONF[game]) return null;
-  return { id, game, numbers: numStr.split(''), playType: pt, drawDate: date, session: sess, sig };
-}
 
-/* ROUTER */
-function render(){
-  const main = document.getElementById('main');
-  if(currentTab==='play') renderPlay(main);
-  else if(currentTab==='tickets') renderTickets(main);
-  else if(currentTab==='verify') renderVerify(main);
-  else if(currentTab==='results') renderResults(main);
-  else if(currentTab==='admin') renderAdmin(main);
-}
 
-/* PLAY */
-function renderPlay(main){
-  const conf = GAME_CONF[currentGame];
-  main.innerHTML = `
-    <div class="page-title">Place your numbers</div>
-    <div class="page-sub">FIXED-PRICE TICKETS · SCANNABLE QR · BUY AS MANY AS YOU WANT</div>
-    <div class="game-switch">
-      <div class="game-tab ${currentGame==='PICK3'?'active':''}" data-game="PICK3">PICK 3 <span class="pr">$100 / line</span></div>
-      <div class="game-tab ${currentGame==='DAILY4'?'active':''}" data-game="DAILY4">DAILY 4 <span class="pr">$500 / line</span></div>
-    </div>
-    <div class="card">
-      <span class="field-label">Your numbers</span>
-      <div class="digit-row" id="digitRow"></div>
 
-      <span class="field-label">Play type</span>
-      <div class="option-grid" id="playTypeGrid"></div>
 
-      <div class="row-split">
-        <div class="col">
-          <span class="field-label">How many tickets</span>
-          <input type="number" id="qtyInput" min="1" max="50" value="${quantity}">
-          <div class="checkbox-line"><input type="checkbox" id="randEach" ${randomizeEach?'checked':''}> Randomize numbers on every ticket</div>
-        </div>
-        <div class="col">
-          <span class="field-label">Draw date</span>
-          <input type="date" id="drawDateInput" value="${drawDate}" min="${todayStr()}">
-        </div>
-        <div class="col">
-          <span class="field-label">Draw session</span>
-          <select id="sessionSelect">
-            <option value="MIDDAY" ${session==='MIDDAY'?'selected':''}>Midday</option>
-            <option value="EVENING" ${session==='EVENING'?'selected':''}>Evening</option>
-          </select>
-        </div>
-      </div>
 
-      <div class="cost-bar">
-        <div>
-          <div style="font-size:10.5px; color:var(--text-dim);">Total cost</div>
-          <div class="cost-num" id="costNum">$0</div>
-        </div>
-        <button class="buy-btn" id="buyBtn">🎟 Buy &amp; print</button>
-      </div>
-      <div class="error-msg" id="errMsg"></div>
-      <div class="ok-msg" id="okMsg"></div>
-    </div>
-    <div id="stubArea"></div>
-  `;
 
-  document.querySelectorAll('.game-tab').forEach(t=>{
-    t.onclick = ()=>{ currentGame = t.dataset.game; selectedDigits = Array(GAME_CONF[currentGame].digits).fill(''); render(); };
-  });
 
-  const digitRow = document.getElementById('digitRow');
-  digitRow.innerHTML='';
-  for(let i=0;i<conf.digits;i++){
-    const inp = document.createElement('input');
-    inp.className='digit-input';
-    inp.maxLength=1; inp.inputMode='numeric';
-    inp.value = selectedDigits[i]||'';
-    inp.disabled = randomizeEach && quantity>1;
-    inp.addEventListener('input',(e)=>{
-      const v = e.target.value.replace(/[^0-9]/g,'').slice(-1);
-      e.target.value=v; selectedDigits[i]=v; updateCost();
-      if(v && inp.nextElementSibling && inp.nextElementSibling.classList.contains('digit-input')) inp.nextElementSibling.focus();
-    });
-    digitRow.appendChild(inp);
-  }
-  const qp = document.createElement('button');
-  qp.className='quickpick'; qp.textContent='🎲 QUICK PICK';
-  qp.onclick = ()=>{ selectedDigits = Array.from({length:conf.digits}, ()=>String(Math.floor(Math.random()*10))); render(); };
-  digitRow.appendChild(qp);
 
-  const ptGrid = document.getElementById('playTypeGrid');
-  const options = [
-    {id:'STRAIGHT', label:'Straight', note:'Exact order · 1×'},
-    {id:'BOX', label:'Box', note:'Any order · 1×'},
-    {id:'STRAIGHT_BOX', label:'Straight/Box', note:'Both · 2×'}
-  ];
-  ptGrid.innerHTML = options.map(o=>`<div class="opt ${playType===o.id?'active':''}" data-pt="${o.id}">${o.label}<small>${o.note}</small></div>`).join('');
-  ptGrid.querySelectorAll('.opt').forEach(el=>{ el.onclick=()=>{ playType=el.dataset.pt; render(); }; });
 
-  document.getElementById('qtyInput').onchange = (e)=>{ quantity = Math.max(1, Math.min(50, parseInt(e.target.value)||1)); render(); };
-  document.getElementById('randEach').onchange = (e)=>{ randomizeEach = e.target.checked; render(); };
-  document.getElementById('drawDateInput').onchange = (e)=>{ drawDate = e.target.value; };
-  document.getElementById('sessionSelect').onchange = (e)=>{ session = e.target.value; };
-  document.getElementById('buyBtn').onclick = buyTickets;
 
-  updateCost();
-  if(lastBatch.length && lastBatch[0].game===currentGame){
-    renderStubGrid(document.getElementById('stubArea'), lastBatch, true);
-  }
-}
-function updateCost(){
-  const el = document.getElementById('costNum'); if(!el) return;
-  el.textContent = '$' + (lineCost(currentGame, playType)*quantity).toLocaleString();
-}
 
-async function buyTickets(){
-  const errEl = document.getElementById('errMsg'); const okEl = document.getElementById('okMsg');
-  errEl.textContent=''; okEl.textContent='';
-  const conf = GAME_CONF[currentGame];
-  if(!randomizeEach && selectedDigits.some(d=>!d)){
-    errEl.textContent = 'Fill in all digits, use Quick Pick, or turn on "Randomize numbers on every ticket."'; return;
-  }
-  if(!randomizeEach && (playType==='BOX'||playType==='STRAIGHT_BOX') && allSame(selectedDigits)){
-    errEl.textContent = 'All digits match — Box play isn\'t available for this combination.'; return;
-  }
-  const totalCost = lineCost(currentGame, playType)*quantity;
-  if(totalCost > wallet){
-    errEl.textContent = `Insufficient balance. This purchase costs $${totalCost.toLocaleString()}, you have $${wallet.toLocaleString()}.`; return;
-  }
-  const batch = [];
-  try{
-    for(let i=0;i<quantity;i++){
-      const numbers = randomizeEach ? Array.from({length:conf.digits}, ()=>String(Math.floor(Math.random()*10))) : [...selectedDigits];
-      const id = genTicketId();
-      const ticket = { id, game:currentGame, numbers, playType, bet:1, cost:lineCost(currentGame,playType), drawDate, session, purchasedAt:new Date().toISOString(), collected:false };
-      ticket.sig = await computeSig(ticket);
-      await STORAGE.set('ticket:'+id, JSON.stringify(ticket), false);
-      batch.push(ticket);
-    }
-    wallet -= totalCost;
-    await saveWallet();
-    lastBatch = batch;
-    okEl.textContent = `${quantity} ticket${quantity>1?'s':''} printed — total $${totalCost.toLocaleString()}.`;
-    renderStubGrid(document.getElementById('stubArea'), batch, true);
-  }catch(e){ console.error(e); errEl.textContent = 'Could not save tickets. Please try again.'; }
-}
-function genTicketId(){ return Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,6).toUpperCase(); }
 
-function renderStubGrid(container, tickets, showPrint){
-  container.innerHTML = `
-    ${showPrint ? '<div style="margin:20px 0 12px 0;"><button class="buy-btn secondary" id="printBatchBtn">🖨 Print these tickets</button></div>' : ''}
-    <div class="stub-grid" id="stubGrid"></div>
-  `;
-  const grid = document.getElementById('stubGrid');
-  tickets.forEach(t=>{
-    const conf = GAME_CONF[t.game];
-    const el = document.createElement('div');
-    el.className='stub';
-    el.innerHTML = `
-      <div class="foil"></div>
-      <div class="stub-head"><div class="b">${conf.label} TICKET</div><div class="s">${t.playType.replace('_','/')} · $${t.cost.toLocaleString()}</div></div>
-      <div class="stub-digits">${t.numbers.join(' ')}</div>
-      <div class="stub-meta"><span>DRAW</span><span>${t.drawDate} · ${t.session}</span></div>
-      <div class="stub-qr" id="qr-${t.id}"></div>
-      <div class="stub-id">#${t.id}</div>
-      <div class="stub-sig">SEC ${t.sig}</div>
-    `;
-    grid.appendChild(el);
-    new QRCode(document.getElementById('qr-'+t.id), { text: ticketToCode(t), width:110, height:110, colorDark:'#0B0A12', colorLight:'#ffffff' });
-  });
-  if(showPrint){
-    const pb = document.getElementById('printBatchBtn');
-    if(pb) pb.onclick = ()=> window.print();
-  }
-}
 
-/* MY TICKETS */
-async function renderTickets(main){
-  main.innerHTML = `<div class="page-title">My tickets</div><div class="page-sub">STATUS UPDATES AS SOON AS A DRAW IS POSTED</div><div class="loading">Loading tickets…</div>`;
-  let tickets = [];
-  try{
-    const list = await STORAGE.list('ticket:', false);
-    for(const k of (list && list.keys)||[]){
-      try{ const res = await STORAGE.get(k,false); if(res) tickets.push(JSON.parse(res.value)); }catch(e){}
-    }
-  }catch(e){ tickets=[]; }
-  tickets.sort((a,b)=> new Date(b.purchasedAt)-new Date(a.purchasedAt));
 
-  if(tickets.length===0){
-    main.innerHTML = `<div class="page-title">My tickets</div><div class="page-sub">STATUS UPDATES AS SOON AS A DRAW IS POSTED</div><div class="empty">No tickets yet. Head to Play to buy your first one.</div>`;
-    return;
-  }
-  const rows=[];
-  for(const t of tickets){
-    let draw=null;
-    try{ const d = await STORAGE.get(`draw:${t.game}:${t.drawDate}:${t.session}`, true); if(d) draw=JSON.parse(d.value); }catch(e){}
-    let tagHtml = `<span class="tag pending">PENDING DRAW</span>`; let actionHtml='';
-    if(draw){
-      const evalRes = evaluateTicket(t, draw.numbers);
-      if(evalRes.won){
-        tagHtml = `<span class="tag win">WON $${evalRes.amount.toLocaleString()}</span>`;
-        actionHtml = t.collected ? `<span class="collected">✓ Collected</span>` : `<button class="collect-btn" data-id="${t.id}" data-amt="${evalRes.amount}">Collect</button>`;
-      } else { tagHtml = `<span class="tag lose">NO WIN</span>`; }
-    }
-    rows.push(`
-      <div class="tk-row">
-        <div class="tk-left">
-          <div class="tk-digits">${t.numbers.join(' ')}</div>
-          <div class="tk-info"><b>${GAME_CONF[t.game].label}</b> · ${t.playType.replace('_','/')} · $${t.cost.toLocaleString()}<br>Draw ${t.drawDate} · ${t.session} · #${t.id}</div>
-        </div>
-        <div style="display:flex; align-items:center; gap:12px;">${tagHtml}${actionHtml}</div>
-      </div>`);
-  }
-  main.innerHTML = `<div class="page-title">My tickets</div><div class="page-sub">STATUS UPDATES AS SOON AS A DRAW IS POSTED</div><div class="ticket-list">${rows.join('')}</div>`;
-  main.querySelectorAll('.collect-btn').forEach(btn=>{
-    btn.onclick = async ()=>{
-      const id = btn.dataset.id, amt = parseFloat(btn.dataset.amt);
-      try{
-        const res = await STORAGE.get('ticket:'+id, false);
-        const ticket = JSON.parse(res.value);
-        ticket.collected = true;
-        await STORAGE.set('ticket:'+id, JSON.stringify(ticket), false);
-        wallet += amt; await saveWallet();
-        renderTickets(main);
-      }catch(e){ console.error(e); }
-    };
-  });
-}
 
-/* VERIFY TICKET */
-function renderVerify(main){
-  main.innerHTML = `
-    <div class="page-title">Verify a ticket</div>
-    <div class="page-sub">PASTE THE TICKET CODE OR UPLOAD A PHOTO OF THE QR CODE</div>
-    <div class="verify-tabs">
-      <div class="vtab ${verifyMode==='code'?'active':''}" data-vm="code">PASTE CODE</div>
-      <div class="vtab ${verifyMode==='image'?'active':''}" data-vm="image">UPLOAD PHOTO</div>
-    </div>
-    <div class="card">
-      ${verifyMode==='code' ? `
-        <span class="field-label">Ticket code</span>
-        <input type="text" id="codeInput" placeholder="TICKET|ID|GAME|NUMBERS|PLAYTYPE|DATE|SESSION|SIG">
-        <div class="cost-bar"><div></div><button class="buy-btn" id="checkCodeBtn">Check ticket</button></div>
-      ` : `
-        <span class="field-label">Upload QR photo</span>
-        <div class="drop-zone" id="dropZone">Click to choose an image, or drag one here</div>
-        <input type="file" id="fileInput" accept="image/*" style="display:none;">
-      `}
-      <div class="error-msg" id="verifyErr"></div>
-    </div>
-    <div id="verifyResult" class="verify-result"></div>
-  `;
-  main.querySelectorAll('.vtab').forEach(t=>{ t.onclick = ()=>{ verifyMode = t.dataset.vm; render(); }; });
 
-  if(verifyMode==='code'){
-    document.getElementById('checkCodeBtn').onclick = ()=>{
-      const text = document.getElementById('codeInput').value;
-      runVerification(text);
-    };
-  } else {
-    const dz = document.getElementById('dropZone');
-    const fi = document.getElementById('fileInput');
-    dz.onclick = ()=> fi.click();
-    dz.ondragover = (e)=>{ e.preventDefault(); dz.style.borderColor='var(--gold)'; };
-    dz.ondragleave = ()=>{ dz.style.borderColor=''; };
-    dz.ondrop = (e)=>{ e.preventDefault(); if(e.dataTransfer.files[0]) handleImageFile(e.dataTransfer.files[0]); };
-    fi.onchange = (e)=>{ if(e.target.files[0]) handleImageFile(e.target.files[0]); };
-  }
-}
 
-function handleImageFile(file){
-  const errEl = document.getElementById('verifyErr'); errEl.textContent='';
-  const img = new Image();
-  const reader = new FileReader();
-  reader.onload = (e)=>{
-    img.onload = ()=>{
-      const canvas = document.getElementById('hiddenCanvas');
-      canvas.width = img.width; canvas.height = img.height;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img,0,0);
-      const imgData = ctx.getImageData(0,0,canvas.width,canvas.height);
-      const code = jsQR(imgData.data, canvas.width, canvas.height);
-      if(code && code.data){
-        runVerification(code.data);
-      } else {
-        errEl.textContent = 'No QR code found in that image. Try a clearer photo.';
-      }
-    };
-    img.src = e.target.result;
-  };
-  reader.readAsDataURL(file);
-}
 
-async function runVerification(text){
-  const errEl = document.getElementById('verifyErr'); errEl.textContent='';
-  const resultEl = document.getElementById('verifyResult');
-  const parsed = parseCode(text);
-  if(!parsed){ errEl.textContent = 'That doesn\'t look like a valid ticket code.'; resultEl.innerHTML=''; return; }
 
-  const check = { ...parsed };
-  const recomputedSig = await computeSig(check);
-  const sigOk = recomputedSig === parsed.sig;
+/* ================================
+   EDIT YOUR PAYMENT LINKS HERE
+================================ */
 
-  let storedTicket = null;
-  try{
-    const res = await STORAGE.get('ticket:'+parsed.id, false);
-    if(res) storedTicket = JSON.parse(res.value);
-  }catch(e){ storedTicket = null; }
 
-  let badgeHtml, extraHtml = '';
-  if(!sigOk){
-    badgeHtml = `<div class="verify-badge bad">⚠ SIGNATURE MISMATCH — this code appears altered or invalid</div>`;
-  } else if(!storedTicket){
-    badgeHtml = `<div class="verify-badge warn">⚠ Signature checks out, but no matching ticket was found in this terminal's records</div>`;
-  } else {
-    badgeHtml = `<div class="verify-badge good">✓ Signature verified — matches a ticket on file</div>`;
-    let draw = null;
-    try{ const d = await STORAGE.get(`draw:${storedTicket.game}:${storedTicket.drawDate}:${storedTicket.session}`, true); if(d) draw = JSON.parse(d.value); }catch(e){}
-    if(draw){
-      const evalRes = evaluateTicket(storedTicket, draw.numbers);
-      extraHtml = evalRes.won
-        ? `<div class="verify-badge good">🏆 WINNER — $${evalRes.amount.toLocaleString()} ${storedTicket.collected?'(already collected)':'(uncollected — visit My Tickets to collect)'}</div>`
-        : `<div class="verify-badge warn" style="color:var(--text-dim); border-color:var(--line); background:#0D0A15;">No win for this draw.</div>`;
-    } else {
-      extraHtml = `<div class="verify-badge warn">Draw not posted yet — check back after ${storedTicket.session.toLowerCase()} draw on ${storedTicket.drawDate}.</div>`;
-    }
-  }
-  resultEl.innerHTML = `
-    ${badgeHtml}${extraHtml}
-    <div class="tk-row" style="margin-top:6px;">
-      <div class="tk-left">
-        <div class="tk-digits">${parsed.numbers.join(' ')}</div>
-        <div class="tk-info"><b>${GAME_CONF[parsed.game].label}</b> · ${parsed.playType.replace('_','/')}<br>Draw ${parsed.drawDate} · ${parsed.session} · #${parsed.id}</div>
-      </div>
-    </div>
-  `;
-}
+const ENTER_YOUR_CHIME_LINK_HERE = 
+"https://app.chime.com/link/qr?u=Andrew-Ostrowski-8";
 
-/* RESULTS */
-async function renderResults(main){
-  main.innerHTML = `<div class="page-title">Winning numbers</div><div class="page-sub">ALL POSTED DRAWS, MOST RECENT FIRST</div><div class="loading">Loading draws…</div>`;
-  let draws=[];
-  try{
-    const list = await STORAGE.list('draw:', true);
-    for(const k of (list&&list.keys)||[]){
-      try{ const res = await STORAGE.get(k,true); if(res) draws.push({key:k, ...JSON.parse(res.value)}); }catch(e){}
-    }
-  }catch(e){ draws=[]; }
-  draws.sort((a,b)=> new Date(b.setAt)-new Date(a.setAt));
-  if(draws.length===0){
-    main.innerHTML = `<div class="page-title">Winning numbers</div><div class="page-sub">ALL POSTED DRAWS, MOST RECENT FIRST</div><div class="empty">No draws posted yet.</div>`;
-    return;
-  }
-  main.innerHTML = `<div class="page-title">Winning numbers</div><div class="page-sub">ALL POSTED DRAWS, MOST RECENT FIRST</div>
-    <div class="draw-history">${draws.map(d=>{ const p=d.key.split(':'); return `<div class="draw-row"><span>${GAME_CONF[p[1]].label} · ${p[2]} · ${p[3]}</span><span class="dg">${d.numbers.join(' ')}</span></div>`; }).join('')}</div>`;
-}
 
-/* ADMIN */
-function renderAdmin(main){
-  main.innerHTML = `
-    <div class="page-title">Draw operator console</div>
-    <div class="page-sub">POST OFFICIAL WINNING NUMBERS — VISIBLE TO ALL PLAYERS</div>
-    <div class="card">
-      <div class="row-split">
-        <div class="col"><span class="field-label">Game</span>
-          <select id="adminGame"><option value="PICK3">Pick 3</option><option value="DAILY4">Daily 4</option></select>
-        </div>
-        <div class="col"><span class="field-label">Draw date</span><input type="date" id="adminDate" value="${todayStr()}"></div>
-        <div class="col"><span class="field-label">Session</span>
-          <select id="adminSession"><option value="MIDDAY">Midday</option><option value="EVENING">Evening</option></select>
-        </div>
-      </div>
-      <div style="margin-top:18px;"><span class="field-label">Winning digits</span><div class="digit-row" id="adminDigitRow"></div></div>
-      <div class="cost-bar">
-        <div class="page-sub" style="margin:0;">Overwrites any existing result for the same game/date/session.</div>
-        <button class="buy-btn" id="postDrawBtn">Post draw</button>
-      </div>
-      <div class="error-msg" id="adminErr"></div>
-    </div>
-    <div id="adminHistory"></div>
-  `;
-  let adminGame='PICK3'; let adminDigits=Array(3).fill('');
-  function buildDigitRow(){
-    const row = document.getElementById('adminDigitRow'); row.innerHTML='';
-    adminDigits = Array(GAME_CONF[adminGame].digits).fill('');
-    for(let i=0;i<GAME_CONF[adminGame].digits;i++){
-      const inp = document.createElement('input');
-      inp.className='digit-input'; inp.maxLength=1; inp.inputMode='numeric';
-      inp.addEventListener('input',(e)=>{ const v=e.target.value.replace(/[^0-9]/g,'').slice(-1); e.target.value=v; adminDigits[i]=v; if(v&&inp.nextElementSibling) inp.nextElementSibling.focus(); });
-      row.appendChild(inp);
-    }
-  }
-  buildDigitRow();
-  document.getElementById('adminGame').onchange = (e)=>{ adminGame=e.target.value; buildDigitRow(); };
-  document.getElementById('postDrawBtn').onclick = async ()=>{
-    const errEl = document.getElementById('adminErr'); errEl.textContent='';
-    if(adminDigits.some(d=>!d)){ errEl.textContent='Enter all winning digits.'; return; }
-    const date = document.getElementById('adminDate').value;
-    const sess = document.getElementById('adminSession').value;
-    const key = `draw:${adminGame}:${date}:${sess}`;
-    try{
-      await STORAGE.set(key, JSON.stringify({numbers:[...adminDigits], setAt:new Date().toISOString()}), true);
-      errEl.style.color='var(--green)'; errEl.textContent='Draw posted.';
-      loadAdminHistory();
-    }catch(e){ console.error(e); errEl.textContent='Could not post draw. Please try again.'; }
-  };
-  loadAdminHistory();
-}
-async function loadAdminHistory(){
-  const holder = document.getElementById('adminHistory'); if(!holder) return;
-  holder.innerHTML = `<div class="loading">Loading history…</div>`;
-  let draws=[];
-  try{
-    const list = await STORAGE.list('draw:', true);
-    for(const k of (list&&list.keys)||[]){ try{ const res=await STORAGE.get(k,true); if(res) draws.push({key:k,...JSON.parse(res.value)}); }catch(e){} }
-  }catch(e){ draws=[]; }
-  draws.sort((a,b)=> new Date(b.setAt)-new Date(a.setAt));
-  if(draws.length===0){ holder.innerHTML = `<div class="empty">No draws posted yet.</div>`; return; }
-  holder.innerHTML = `
-    <div class="field-label">Posted draws</div>
-    <div class="draw-history">${draws.map(d=>{ const p=d.key.split(':'); return `<div class="draw-row"><span>${GAME_CONF[p[1]].label} · ${p[2]} · ${p[3]}</span><span class="dg">${d.numbers.join(' ')}</span></div>`; }).join('')}</div>
-    <div class="disclaimer">Self-contained simulation for demonstration purposes — the wallet is play money and draws are entered manually here, not pulled from any official lottery. Tickets are stored privately per player; posted draws are shared so every check against them agrees. The ticket "signature" is a tamper-evident checksum for this demo, not a real cryptographic secret — don't reuse this pattern for anything handling real money.</div>
-  `;
-}
+const ENTER_YOUR_CASHAPP_LINK_HERE = 
+"https://cash.app/$frankiejoliee06?qr=1";
 
-init();
+
+const ENTER_YOUR_PAYPAL_LINK_HERE = 
+"https://www.paypal.com/qrcodes/p2pqrc/UD9FHE43MC3EA";
+
+
+const ENTER_YOUR_CRYPTO_LINK_HERE = 
+"https://trustwallet.com/";
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+/* CONNECT LINKS TO BUTTONS */
+
+
+document.getElementById("chimeButton").href =
+ENTER_YOUR_CHIME_LINK_HERE;
+
+
+document.getElementById("cashappButton").href =
+ENTER_YOUR_CASHAPP_LINK_HERE;
+
+
+document.getElementById("paypalButton").href =
+ENTER_YOUR_PAYPAL_LINK_HERE;
+
+
+document.getElementById("cryptoButton").href =
+ENTER_YOUR_CRYPTO_LINK_HERE;
+
+
 </script>
+
+
+
 </body>
+
 </html>
