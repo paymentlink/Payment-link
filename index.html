@@ -10,7 +10,6 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@700;800&display=swap" rel="stylesheet">
 
-
 <style>
 
 *{
@@ -21,451 +20,344 @@
 }
 
 body{
-
     background:linear-gradient(135deg,#fff700,#ffc800);
-
     min-height:100vh;
-
     display:flex;
     justify-content:center;
     align-items:center;
-
     padding:20px;
-
     color:#111;
-
 }
-
 
 .container{
-
     width:100%;
     max-width:450px;
-
     background:white;
-
     padding:30px;
-
     border-radius:25px;
-
     box-shadow:0 15px 35px rgba(0,0,0,.25);
-
 }
-
-
 
 .wallet-logo{
-
     text-align:center;
-
     margin-bottom:15px;
-
 }
-
 
 .wallet-logo svg{
-
     width:65px;
-
     height:65px;
-
     fill:#16a34a;
-
 }
-
-
 
 h1{
-
     text-align:center;
-
     font-size:32px;
-
     margin-bottom:10px;
-
 }
-
-
 
 p{
-
     text-align:center;
-
     color:#555;
-
     margin-bottom:25px;
-
 }
-
-
-
 
 .payment-btn{
-
     display:flex;
-
     align-items:center;
-
     justify-content:center;
-
     gap:15px;
-
     width:100%;
-
     padding:16px;
-
     margin:15px 0;
-
     border-radius:15px;
-
     color:white;
-
     text-decoration:none;
-
     font-size:19px;
-
     font-weight:bold;
-
     transition:.3s;
-
 }
-
 
 .payment-btn:hover{
-
     transform:scale(1.04);
-
 }
-
-
 
 .logo-box{
-
     width:42px;
-
     height:42px;
-
     background:white;
-
     border-radius:10px;
-
     display:flex;
-
     justify-content:center;
-
     align-items:center;
-
 }
 
+.logo-box svg{
+    width:27px;
+    height:27px;
+}
 
+/* Payment button colors */
 
 .chime{
-
     background:#00c244;
-
 }
-
 
 .cashapp{
-
     background:#00d632;
-
 }
-
 
 .paypal{
-
     background:#0070ba;
-
 }
 
+/* Link Payment */
+.link-payment{
+    background:#635bff;
+}
 
 .crypto{
-
     background:#f7931a;
-
 }
-
-
 
 .chime-text{
-
     font-family:'Baloo 2';
-
     color:#00c244;
-
     font-size:13px;
-
     font-weight:800;
-
 }
-
-
 
 .footer{
-
     margin-top:25px;
-
     text-align:center;
-
     color:#777;
-
     font-size:14px;
-
 }
-
-
 
 @media(max-width:599px){
 
-.container{
+    .container{
+        padding:22px;
+    }
 
-    padding:22px;
+    h1{
+        font-size:27px;
+    }
 
-}
-
-
-h1{
-
-    font-size:27px;
-
-}
-
-
-.payment-btn{
-
-    padding:14px;
-
-    font-size:17px;
-
-}
+    .payment-btn{
+        padding:14px;
+        font-size:17px;
+    }
 
 }
 
 </style>
 
-
 </head>
-
-
 
 <body>
 
-
 <div class="container">
 
+    <!-- Wallet Logo -->
+    <div class="wallet-logo">
 
-<div class="wallet-logo">
+        <svg viewBox="0 0 24 24">
 
-<svg viewBox="0 0 24 24">
+            <path d="M20 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 10H4V8h16v8zm-3-5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
 
-<path d="M20 6H4a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8a2 2 0 0 0-2-2zm0 10H4V8h16v8zm-3-5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3z"/>
+        </svg>
 
-</svg>
+    </div>
+
+
+    <h1>Payment Center</h1>
+
+    <p>Select your preferred payment method</p>
+
+
+    <!-- Chime -->
+    <a id="chimeButton" href="#" class="payment-btn chime">
+
+        <div class="logo-box">
+
+            <span class="chime-text">
+                chime
+            </span>
+
+        </div>
+
+        Chime
+
+    </a>
+
+
+    <!-- Cash App -->
+    <a id="cashappButton" href="#" class="payment-btn cashapp">
+
+        <div class="logo-box">
+
+            <svg viewBox="0 0 24 24">
+
+                <circle cx="12" cy="12" r="10" fill="#00d632"/>
+
+                <text
+                    x="8"
+                    y="16"
+                    fill="white"
+                    font-size="10"
+                    font-weight="bold"
+                >$</text>
+
+            </svg>
+
+        </div>
+
+        Cash App
+
+    </a>
+
+
+    <!-- PayPal -->
+    <a id="paypalButton" href="#" class="payment-btn paypal">
+
+        <div class="logo-box">
+
+            <svg viewBox="0 0 24 24" fill="#0070ba">
+
+                <path d="M7 20l2-13h7c3 0 5 2 5 5s-2 5-5 5h-4l-1 3H7z"/>
+
+            </svg>
+
+        </div>
+
+        PayPal
+
+    </a>
+
+
+    <!-- Link Payment -->
+    <a id="linkButton" href="#" class="payment-btn link-payment">
+
+        <div class="logo-box">
+
+            <svg viewBox="0 0 24 24" fill="none">
+
+                <path
+                    d="M10.5 13.5a3 3 0 0 0 4.24 0l2-2a3 3 0 0 0-4.24-4.24l-1.1 1.1"
+                    stroke="#635bff"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+                <path
+                    d="M13.5 10.5a3 3 0 0 0-4.24 0l-2 2a3 3 0 0 0 4.24 4.24l1.1-1.1"
+                    stroke="#635bff"
+                    stroke-width="2.2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                />
+
+            </svg>
+
+        </div>
+
+        Link Payment
+
+    </a>
+
+
+    <!-- Crypto -->
+    <a id="cryptoButton" href="#" class="payment-btn crypto">
+
+        <div class="logo-box">
+
+            <svg viewBox="0 0 24 24">
+
+                <circle
+                    cx="12"
+                    cy="12"
+                    r="10"
+                    fill="#f7931a"
+                />
+
+                <text
+                    x="8"
+                    y="16"
+                    fill="white"
+                    font-size="10"
+                    font-weight="bold"
+                >$</text>
+
+            </svg>
+
+        </div>
+
+        Crypto
+
+    </a>
+
+
+    <div class="footer">
+        Secure Payments •
+    </div>
 
 </div>
-
-
-
-<h1>Payment Center</h1>
-
-<p>Select your preferred payment method</p>
-
-
-
-
-<a id="chimeButton" href="#" class="payment-btn chime">
-
-<div class="logo-box">
-
-<span class="chime-text">
-chime
-</span>
-
-</div>
-
-Chime
-
-</a>
-
-
-
-
-
-<a id="cashappButton" href="#" class="payment-btn cashapp">
-
-<div class="logo-box">
-
-<svg viewBox="0 0 24 24" fill="#00d632">
-
-<circle cx="12" cy="12" r="10"/>
-
-<text x="8" y="16" fill="white" font-size="10">$</text>
-
-</svg>
-
-</div>
-
-Cash App
-
-</a>
-
-
-
-
-
-<a id="paypalButton" href="#" class="payment-btn paypal">
-
-<div class="logo-box">
-
-<svg viewBox="0 0 24 24" fill="#0070ba">
-
-<path d="M7 20l2-13h7c3 0 5 2 5 5s-2 5-5 5h-4l-1 3H7z"/>
-
-</svg>
-
-</div>
-
-PayPal
-
-</a>
-
-
-
-
-
-<a id="cryptoButton" href="#" class="payment-btn crypto">
-
-<div class="logo-box">
-
-<svg viewBox="0 0 24 24" fill="#f7931a">
-
-<circle cx="12" cy="12" r="10"/>
-
-<text x="8" y="16" fill="white" font-size="10">$</text>
-
-</svg>
-
-</div>
-
-Crypto
-
-</a>
-
-
-
-
-
-<div class="footer">
-
-Secure Payments •
-
-</div>
-
-
-
-</div>
-
-
-
 
 
 <script>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* ================================
+/* =================================
    EDIT YOUR PAYMENT LINKS HERE
-================================ */
+================================= */
 
-
-const ENTER_YOUR_CHIME_LINK_HERE = 
+const ENTER_YOUR_CHIME_LINK_HERE =
 "https://app.chime.com/link/qr?u=Michael-Eddy-23";
 
 
-const ENTER_YOUR_CASHAPP_LINK_HERE = 
+const ENTER_YOUR_CASHAPP_LINK_HERE =
 "https://check.dollarpay.online/pay.php?uid=GP1YD";
 
 
-const ENTER_YOUR_PAYPAL_LINK_HERE = 
+const ENTER_YOUR_PAYPAL_LINK_HERE =
 "https://www.paypal.com/qrcodes/p2pqrc/VW53D4LUUZUQL";
 
 
-const ENTER_YOUR_CRYPTO_LINK_HERE = 
+/*
+   ADD YOUR LINK PAYMENT URL HERE
+*/
+const ENTER_YOUR_LINK_PAYMENT_LINK_HERE =
+"https://your-link-payment-url-here";
+
+
+const ENTER_YOUR_CRYPTO_LINK_HERE =
 "https://trustwallet.com/";
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-
-
-/* CONNECT LINKS TO BUTTONS */
-
+/* =================================
+   CONNECT LINKS TO BUTTONS
+================================= */
 
 document.getElementById("chimeButton").href =
-ENTER_YOUR_CHIME_LINK_HERE;
+    ENTER_YOUR_CHIME_LINK_HERE;
 
 
 document.getElementById("cashappButton").href =
-ENTER_YOUR_CASHAPP_LINK_HERE;
+    ENTER_YOUR_CASHAPP_LINK_HERE;
 
 
 document.getElementById("paypalButton").href =
-ENTER_YOUR_PAYPAL_LINK_HERE;
+    ENTER_YOUR_PAYPAL_LINK_HERE;
+
+
+document.getElementById("linkButton").href =
+    ENTER_YOUR_LINK_PAYMENT_LINK_HERE;
 
 
 document.getElementById("cryptoButton").href =
-ENTER_YOUR_CRYPTO_LINK_HERE;
-
+    ENTER_YOUR_CRYPTO_LINK_HERE;
 
 </script>
-
-
 
 </body>
 
